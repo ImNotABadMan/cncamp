@@ -4,22 +4,24 @@ LABEL authors="binz" module="2"
 
 RUN apk add make
 
-ENV GOPATH=/root/go
+ENV GOPATH=/go
 ENV GO111MODULE=on
 
-RUN mkdir -p ./go/src
+RUN mkdir -p ./src
 
-COPY HttpServer ./go/src
-COPY Makefile ./go/src
-COPY ./go.mod.template ./go/src/go.mod
+# 拷贝目录会递归到目录下的文件，需要指定目录
+COPY ./HttpServer ./src/HttpServer
+COPY Makefile ./src
+COPY ./go.mod.template ./src/go.mod
 
-WORKDIR ./go/src
+WORKDIR ./src
 
-RUN make run_http
+RUN make build_http
 
 FROM debian:stable-slim as debain
-COPY --from=muiltego /root/go/src/HttpServer/server ./go/server
+RUN mkdir -p ./go
+COPY --from=muiltego /go/src/HttpServer/server ./go/server
 RUN chown -R 0777 ./go/server
 WORKDIR ./go
 
-ENTRYPOINT ["./go"]
+ENTRYPOINT ["./server"]
