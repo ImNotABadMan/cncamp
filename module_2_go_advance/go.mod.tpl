@@ -2,11 +2,8 @@ module main
 
 go 1.20
 
-replace go-class/reader/reader2 => ./go-class/reader/reader2
-
 require (
 	github.com/golang/glog v1.1.1 // indirect
-	go-class/reader/reader2 v0.0.0-00010101000000-000000000000
 )
 
 // Go代码必须放在工作空间内。它其实就是一个目录，其中包含三个子目录：
