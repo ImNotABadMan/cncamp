@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: test-config-deploy
+  labels:
+    app: test-config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-config-pod
+  template:
+    metadata:
+      name: test-config-pod
+      labels:
+        app: test-config-pod
+    spec:
+      containers:
+        - name: test-config-pod
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: test-config-pod-volume
+              mountPath: /app/k8s-configmap
+              readOnly: false
+      restartPolicy: Always
+      volumes:
+        - name: test-config-pod-volume
+          configMap:
+            name: test-config
