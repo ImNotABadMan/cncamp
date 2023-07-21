@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment-with-volume
+  labels:
+    app: nginx-deployment-with-volume
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-deployment-with-volume-pod
+  template:
+    metadata:
+      name: nginx-deployment-with-volume-pod
+      labels:
+        app: nginx-deployment-with-volume-pod
+    spec:
+      containers:
+        - name: nginx-deployment-with-volume
+          image: nginx
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: empty-cache-volume
+              mountPath: /tmp
+      restartPolicy: Always
+      volumes:
+        - name: empty-cache-volume
+          emptyDir: {}
+      

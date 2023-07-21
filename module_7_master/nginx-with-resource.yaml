@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-with-resource-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-with-resource-pod
+  template:
+    metadata:
+      labels:
+        app: nginx-with-resource-pod
+    spec:
+      containers:
+        - name: nginx-with-resource-pod
+          image: nginx
+          resources:
+            limits: # cgroup的限制
+              cpu: 3
+              memory: 100Mi
+            requests: # request：kube-schedule的限制, 不能大于limit
+              cpu: 3
+              memory: 100Mi
+
+
+  

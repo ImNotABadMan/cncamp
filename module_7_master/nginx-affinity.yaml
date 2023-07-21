@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-affinity
+  labels:
+    app: nginx-affinity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-affinity-pod
+  template:
+    metadata:
+      name: nginx-affinity-pod
+      labels:
+        app: nginx-affinity-pod
+    spec:
+      # 定义pod的亲和性
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: location
+                    operator: In
+                    values:
+                      - local
+      containers:
+        - name: nginx-affinity
+          image: nginx
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+
