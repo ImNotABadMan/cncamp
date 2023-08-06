@@ -4,6 +4,11 @@ metadata:
   name: test-config-deploy
   labels:
     app: test-config
+    dept: user-it-dept
+  annotations:
+    user-it: user1test-test-finalizer
+  finalizers: # 资源锁，加上deleteTimestamp
+    - kubernetes
 spec:
   replicas: 1
   selector:

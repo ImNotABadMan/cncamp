@@ -1,0 +1,11 @@
+zhioed.cme7mlr1bsdzx04x
+
+
+kubeadm join --token zhioed.cme7mlr1bsdzx04x 192.168.10.113:6443 \
+--image-repository=registry.aliyuncs.com/google_containers \
+--discovery-token-ca-cert-hash sha256:b705d8baaec2ff2a79cddb4dc68a9bde498d670f8edfa7c75a2b59d08b5f88e2
+
+
+kubeadm join --config=kubeadm-join.yaml \
+--image-repository=registry.aliyuncs.com/google_containers \
+--discovery-token-ca-cert-hash sha256:b705d8baaec2ff2a79cddb4dc68a9bde498d670f8edfa7c75a2b59d08b5f88e2
